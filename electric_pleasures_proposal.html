@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Photography Proposal — Electric Pleasures</title>
+<style>
+  :root {
+    --black: #080808;
+    --off-white: #f0ebe3;
+    --gold: #c9a84c;
+    --gold-light: #e8c97a;
+    --deep-red: #8b1a2f;
+    --muted: #7a7069;
+    --divider: rgba(201,168,76,0.25);
+    --font-head: 'Helvetica Neue', 'HelveticaNeue', Helvetica, Arial, sans-serif;
+    --font-body: 'Helvetica Neue', 'HelveticaNeue', Helvetica, Arial, sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--black);
+    color: var(--off-white);
+    font-family: var(--font-body);
+    font-weight: 300;
+    min-height: 100vh;
+  }
+
+  .grain {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 100;
+    opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+    background-size: 200px 200px;
+  }
+
+  .page {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 80px 40px;
+    animation: fadeUp 0.9s ease both;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* HEADER */
+  .header {
+    border-bottom: 1px solid var(--divider);
+    padding-bottom: 48px;
+    margin-bottom: 56px;
+  }
+
+  .eyebrow {
+    font-family: var(--font-head);
+    font-weight: 700;
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    color: var(--gold);
+    margin-bottom: 20px;
+    text-transform: uppercase;
+  }
+
+  h1 {
+    font-family: var(--font-head);
+    font-weight: 700;
+    font-size: clamp(48px, 8vw, 80px);
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    color: var(--off-white);
+  }
+
+  h1 em {
+    font-style: normal;
+    color: var(--gold-light);
+  }
+
+  .subhead {
+    margin-top: 20px;
+    font-size: 12px;
+    font-weight: 300;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+
+  /* INTRO */
+  .intro {
+    margin-bottom: 56px;
+    border-left: 1px solid var(--gold);
+    padding-left: 28px;
+  }
+
+  .intro p {
+    font-family: var(--font-body);
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 1.75;
+    color: #d6cfc4;
+  }
+
+  /* SECTION */
+  .section {
+    margin-bottom: 56px;
+    animation: fadeUp 0.9s ease both;
+  }
+
+  .section-label {
+    font-family: var(--font-head);
+    font-weight: 700;
+    font-size: 10px;
+    letter-spacing: 0.35em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--divider);
+  }
+
+  /* PACKAGES */
+  .package {
+    border: 1px solid var(--divider);
+    padding: 32px;
+    margin-bottom: 16px;
+    position: relative;
+    transition: border-color 0.3s;
+  }
+
+  .package:hover {
+    border-color: var(--gold);
+  }
+
+  .package.featured {
+    border-color: var(--gold);
+    background: linear-gradient(135deg, rgba(201,168,76,0.04) 0%, transparent 60%);
+  }
+
+  .package.featured::before {
+    content: 'RECOMMENDED';
+    position: absolute;
+    top: -1px;
+    right: 32px;
+    background: var(--gold);
+    color: var(--black);
+    font-family: var(--font-head);
+    font-weight: 700;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    padding: 4px 10px;
+  }
+
+  .pkg-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 20px;
+  }
+
+  .pkg-name {
+    font-family: var(--font-head);
+    font-weight: 700;
+    font-size: 18px;
+    letter-spacing: -0.01em;
+    color: var(--off-white);
+  }
+
+  .pkg-price {
+    font-family: var(--font-head);
+    font-weight: 700;
+    font-size: 28px;
+    color: var(--gold-light);
+    letter-spacing: -0.02em;
+    text-align: right;
+    line-height: 1;
+  }
+
+  .pkg-price span {
+    display: block;
+    font-family: var(--font-body);
+    font-size: 10px;
+    font-weight: 300;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-top: 4px;
+  }
+
+  .pkg-includes {
+    list-style: none;
+  }
+
+  .pkg-includes li {
+    font-family: var(--font-body);
+    font-weight: 300;
+    font-size: 13px;
+    color: #b5ada4;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    display: flex;
+    gap: 12px;
+    align-items: baseline;
+    line-height: 1.6;
+  }
+
+  .pkg-includes li::before {
+    content: '—';
+    color: var(--gold);
+    font-size: 11px;
+    flex-shrink: 0;
+  }
+
+  .pkg-includes li .note {
+    display: block;
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 4px;
+    font-style: normal;
+    line-height: 1.5;
+  }
+
+  /* TRAVEL TERMS */
+  .terms-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--divider);
+    border: 1px solid var(--divider);
+  }
+
+  .term-cell {
+    background: var(--black);
+    padding: 20px 24px;
+  }
+
+  .term-label {
+    font-family: var(--font-head);
+    font-weight: 700;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+
+  .term-value {
+    font-family: var(--font-body);
+    font-weight: 300;
+    font-size: 14px;
+    color: var(--off-white);
+    line-height: 1.6;
+  }
+
+  /* RIGHTS */
+  .rights-box {
+    background: rgba(139, 26, 47, 0.08);
+    border: 1px solid rgba(139, 26, 47, 0.3);
+    padding: 28px 32px;
+  }
+
+  .rights-box p {
+    font-family: var(--font-body);
+    font-weight: 300;
+    font-size: 13px;
+    color: #b5ada4;
+    line-height: 1.9;
+  }
+
+  .rights-box strong {
+    font-family: var(--font-head);
+    font-weight: 700;
+    color: var(--off-white);
+  }
+
+  /* FOOTER */
+  .footer {
+    margin-top: 72px;
+    padding-top: 40px;
+    border-top: 1px solid var(--divider);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+
+  .sig {
+    font-family: var(--font-head);
+    font-weight: 700;
+    font-size: 22px;
+    color: var(--gold-light);
+    letter-spacing: -0.01em;
+  }
+
+  .contact {
+    text-align: right;
+    font-family: var(--font-body);
+    font-weight: 300;
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 2;
+    letter-spacing: 0.05em;
+  }
+
+  .contact a {
+    color: var(--gold);
+    text-decoration: none;
+  }
+
+  /* TOTAL BOX */
+  .total-box {
+    border: 1px solid var(--gold);
+    padding: 28px 32px;
+    background: linear-gradient(135deg, rgba(201,168,76,0.05) 0%, transparent 60%);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 8px;
+  }
+
+  .total-label {
+    font-family: var(--font-head);
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .total-label span {
+    display: block;
+    font-weight: 300;
+    font-size: 12px;
+    letter-spacing: 0.05em;
+    color: var(--muted);
+    margin-top: 6px;
+    text-transform: none;
+  }
+
+  .total-amount {
+    font-family: var(--font-head);
+    font-weight: 700;
+    font-size: 40px;
+    color: var(--gold-light);
+    letter-spacing: -0.03em;
+    text-align: right;
+    line-height: 1;
+  }
+
+  .total-amount span {
+    display: block;
+    font-size: 11px;
+    font-weight: 300;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-top: 6px;
+  }
+
+  .travel-est {
+    font-size: 11px;
+    font-weight: 300;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+
+  @media (max-width: 600px) {
+    .page { padding: 48px 24px; }
+    .pkg-header { flex-direction: column; gap: 12px; }
+    .terms-grid { grid-template-columns: 1fr; }
+    .footer { flex-direction: column; gap: 24px; align-items: flex-start; }
+    .contact { text-align: left; }
+  }
+</style>
+</head>
+<body>
+<div class="grain"></div>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="eyebrow">Photography Proposal · 2026</div>
+    <h1>Electric<br><em>Pleasures</em></h1>
+    <div class="subhead">Prepared by Restine Padojino &nbsp;·&nbsp; @restine</div>
+  </div>
+
+  <!-- INTRO -->
+  <div class="intro section">
+    <p>Thank you for reaching out. Below you'll find my proposed packages for two days of event photography coverage — including editorial stills and social media content — along with my travel and usage terms. I'd love to learn more about the vision before confirming.</p>
+  </div>
+
+  <!-- PACKAGES -->
+  <div class="section">
+    <div class="section-label">Service Packages</div>
+
+    <div class="package">
+      <div class="pkg-header">
+        <div class="pkg-name">Editorial Coverage</div>
+        <div class="pkg-price">$1,400<span>2-day rate</span></div>
+      </div>
+      <ul class="pkg-includes">
+        <li>2 full days of event photography (up to 8 hrs/day)</li>
+        <li>60–80 fully edited high-resolution images</li>
+        <li>Online gallery delivery within 10 business days</li>
+        <li>Usage rights for event promotion, social media, and press</li>
+      </ul>
+    </div>
+
+    <div class="package">
+      <div class="pkg-header">
+        <div class="pkg-name">Editorial + Social Content</div>
+        <div class="pkg-price">$1,900<span>2-day rate</span></div>
+      </div>
+      <ul class="pkg-includes">
+        <li>2 full days of event photography (up to 8 hrs/day)</li>
+        <li>80–120 fully edited high-resolution images</li>
+        <li>20–30 social-ready crops optimized for IG / TikTok</li>
+        <li>5 hero images with full retouching — the strongest shots of the weekend, polished for campaign or feature use</li>
+        <li>Priority 48-hr social selects turnaround</li>
+        <li>Online gallery delivery within 10 business days</li>
+        <li>Usage rights for event promotion, social media, and individual creator use</li>
+      </ul>
+    </div>
+
+    <div class="package featured">
+      <div class="pkg-header">
+        <div class="pkg-name">Full Commercial Package</div>
+        <div class="pkg-price">$2,600<span>2-day rate</span></div>
+      </div>
+      <ul class="pkg-includes">
+        <li>Everything in Editorial + Social Content</li>
+        <li>Extended usage rights — paid ads, brand campaigns, print, and sponsorship materials</li>
+        <li>Portrait sessions for talent / performers (30 min each)</li>
+        <li>Rush 72-hr full gallery turnaround</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- TRAVEL -->
+  <div class="section">
+    <div class="section-label">Travel &amp; Expenses</div>
+    <div class="terms-grid">
+      <div class="term-cell">
+        <div class="term-label">Lodging</div>
+        <div class="term-value">Provided by client</div>
+        <div class="travel-est">Est. $0 — confirmed</div>
+      </div>
+      <div class="term-cell">
+        <div class="term-label">Flights</div>
+        <div class="term-value">Round-trip from Chicago O'Hare, booked or reimbursed by client</div>
+        <div class="travel-est">Est. $250–$450 depending on destination</div>
+      </div>
+      <div class="term-cell">
+        <div class="term-label">Ground Transport</div>
+        <div class="term-value">Airport transfers and local travel covered by client</div>
+        <div class="travel-est">Est. $60–$120 total</div>
+      </div>
+      <div class="term-cell">
+        <div class="term-label">Per Diem</div>
+        <div class="term-value">$75/day for meals &amp; incidentals</div>
+        <div class="travel-est">Est. $150 for 2 days</div>
+      </div>
+    </div>
+    <div class="total-box" style="margin-top:1px; border-top: none; background: rgba(201,168,76,0.03);">
+      <div class="total-label">Estimated Travel Total<span>Billed to client in addition to package rate</span></div>
+      <div class="total-amount" style="font-size:24px;">$460–$720<span>estimate</span></div>
+    </div>
+  </div>
+
+  <!-- ESTIMATED TOTAL -->
+  <div class="section">
+    <div class="section-label">Estimated Total</div>
+    <div class="terms-grid">
+      <div class="term-cell">
+        <div class="term-label">Package (Recommended)</div>
+        <div class="term-value">Full Commercial Package</div>
+        <div class="travel-est">2-day rate</div>
+      </div>
+      <div class="term-cell">
+        <div class="term-label">Travel &amp; Expenses</div>
+        <div class="term-value">Flights, transport, per diem</div>
+        <div class="travel-est">Client-covered, estimated below</div>
+      </div>
+    </div>
+    <div class="total-box">
+      <div class="total-label">Estimated Project Total<span>Package + travel expenses — final travel cost confirmed at booking</span></div>
+      <div class="total-amount">$3,060–$3,320<span>based on recommended package</span></div>
+    </div>
+  </div>
+
+  <!-- TERMS -->
+  <div class="section">
+    <div class="section-label">Booking Terms</div>
+    <div class="terms-grid">
+      <div class="term-cell">
+        <div class="term-label">Deposit</div>
+        <div class="term-value">50% to confirm date</div>
+      </div>
+      <div class="term-cell">
+        <div class="term-label">Balance Due</div>
+        <div class="term-value">Remaining 50% on Day 1 of event</div>
+      </div>
+      <div class="term-cell">
+        <div class="term-label">Cancellation</div>
+        <div class="term-value">Deposit non-refundable within 30 days of event</div>
+      </div>
+      <div class="term-cell">
+        <div class="term-label">Contract</div>
+        <div class="term-value">Written agreement required prior to travel booking</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="sig">Restine Padojino</div>
+    <div class="contact">
+      @restine on Instagram<br>
+      Chicago, IL
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
